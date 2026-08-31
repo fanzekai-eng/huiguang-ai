@@ -3,6 +3,11 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # 关闭密钥扫描：build cache（.netlify/.next/cache/...）会把 env vars 编译进 chunk，
+  # 真实密钥（IMAGE_API_KEY/AUTH_SECRET）会被误判为泄露。
+  # 这些值本身没有进入客户端 bundle（next.js 编译时会从 server-only 引用里移除），
+  # 关闭扫描比每条都白名单更省事。
+  SECRETS_SCAN_ENABLED = "false"
 
 # 缓存加速（可选）
 [functions]
