@@ -1,13 +1,15 @@
-// 数据库模型（本地开发用 SQLite；部署时切换 Postgres）
-// 切换方式：provider 改为 "postgresql"，DATABASE_URL 指向 Neon 云库
+// 数据库模型（Neon Postgres，项目 late-base-52351328）
+// url = 应用运行时（pooled 连接，PgBouncer 池化）
+// directUrl = Prisma 迁移专用（direct 连接，池化不支持迁移的会话级操作）
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model User {
