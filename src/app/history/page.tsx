@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 
@@ -20,22 +20,26 @@ export default function HistoryPage() {
   const [loading, setLoading] = useState(true);
   const [lightbox, setLightbox] = useState<HistoryItem | null>(null);
 
-  const load = useCallback(async () => {
-    try {
-      const res = await fetch("/api/history");
-      const data = await res.json();
-      setItems(data.items ?? []);
-      setCredits(data.credits ?? 0);
-    } catch {
-      // 忽略错误
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    load();
-  }, [load]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/history");
+        const data = await res.json();
+        if (!cancelled) {
+          setItems(data.items ?? []);
+          setCredits(data.credits ?? 0);
+        }
+      } catch {
+        // 忽略错误
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const totalGenerated = items.length;
 

@@ -40,9 +40,11 @@ export default function GenerateClient() {
     if (templateId) {
       const t = getTemplate(templateId);
       if (t) {
-        setSelections({ ...t.options });
-        setSubject(t.subject);
-        setExtra(t.extra ?? "");
+        queueMicrotask(() => {
+          setSelections({ ...t.options });
+          setSubject(t.subject);
+          setExtra(t.extra ?? "");
+        });
       }
     }
   }, [templateId]);
