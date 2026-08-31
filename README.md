@@ -12,7 +12,7 @@
 | 赛博朋克 | 深夜灯火通明的东京街头 | 16:9 |
 | 职场商务 | 手持咖啡的白领在办公室微笑 | 3:4 |
 
-![示例 1](docs/screenshots/examples/example-3.png)　　![示例 2](docs/screenshots/examples/example-2.png)　　![示例 3](docs/screenshots/examples/example-1.png)
+![示例 1](docs/screenshots/examples/example-3.jpg)　　![示例 2](docs/screenshots/examples/example-2.jpg)　　![示例 3](docs/screenshots/examples/example-1.jpg)
 
 > ⚠️ 默认使用智谱 CogView-3-Flash（官方免费）出图，会在右下角带"AI 生成"水印。如需去水印，可在控制台充值后切换到 `cogview-3` 标准版。
 
