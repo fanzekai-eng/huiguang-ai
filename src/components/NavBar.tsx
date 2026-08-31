@@ -2,11 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useAuth } from "./AuthProvider";
 
 export default function NavBar() {
-  const { user, logout } = useAuth();
+  const { user, logout, signInDaily } = useAuth();
   const pathname = usePathname();
+  const [signing, setSigning] = useState(false);
+  const [signMsg, setSignMsg] = useState("");
+
+  async function handleSignIn() {
+    if (!user || signing) return;
+    setSigning(true);
+    const res = await signInDaily();
+    setSigning(false);
+    setSignMsg(res.ok ? `+5 积分已到账` : res.already ? "今天已经签过啦" : "签到失败");
+    setTimeout(() => setSignMsg(""), 2000);
+  }
 
   // 登录页不展示导航
   if (pathname === "/login") return null;
@@ -45,8 +57,30 @@ export default function NavBar() {
 
           {user ? (
             <>
+              <button
+                onClick={handleSignIn}
+                disabled={user.signedInToday || signing}
+                className={`ml-1 flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                  user.signedInToday
+                    ? "cursor-default bg-bg text-ink-3"
+                    : "bg-primary text-white hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
+                }`}
+                title={
+                  user.signedInToday
+                    ? "今天已签到，明天再来吧"
+                    : "每日签到领 5 积分"
+                }
+              >
+                {signing
+                  ? "签到中…"
+                  : signMsg
+                    ? signMsg
+                    : user.signedInToday
+                      ? "今日已签到 ✓"
+                      : "签到 +5"}
+              </button>
               <span
-                title="每次生成消耗 20 积分"
+                title="每次生成消耗 1 积分"
                 className="ml-1 flex items-center gap-1 rounded-full bg-primary-light px-3 py-1.5 text-xs font-semibold text-primary"
               >
                 ⚡ {user.credits} 积分

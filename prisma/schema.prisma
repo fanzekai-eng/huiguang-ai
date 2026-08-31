@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  phone       String       @unique
-  credits     Int          @default(500)
-  createdAt   DateTime     @default(now())
-  generations Generation[]
+  id           String       @id @default(cuid())
+  phone        String       @unique
+  credits      Int          @default(0)
+  lastSignInAt String? // 最近签到日期 YYYY-MM-DD，null=从未签到
+  createdAt    DateTime     @default(now())
+  generations  Generation[]
 }
 
 model Generation {

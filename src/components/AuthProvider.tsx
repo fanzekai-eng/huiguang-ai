@@ -12,6 +12,8 @@ export interface User {
   id: string;
   phone: string;
   credits: number;
+  signedInToday: boolean;
+  lastSignInAt: string | null;
 }
 
 interface AuthContextValue {
@@ -19,6 +21,7 @@ interface AuthContextValue {
   loading: boolean;
   refresh: () => Promise<void>;
   logout: () => Promise<void>;
+  signInDaily: () => Promise<{ ok: boolean; already: boolean; credits?: number }>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
@@ -26,6 +29,7 @@ const AuthContext = createContext<AuthContextValue>({
   loading: true,
   refresh: async () => {},
   logout: async () => {},
+  signInDaily: async () => ({ ok: false, already: false }),
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -54,8 +58,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     window.location.href = "/";
   }, []);
 
+  const signInDaily = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/sign-in", { method: "POST" });
+      const data = await res.json();
+      await refresh();
+      return {
+        ok: !!data.ok,
+        already: !!data.already,
+        credits: data.credits as number | undefined,
+      };
+    } catch {
+      return { ok: false, already: false };
+    }
+  }, [refresh]);
+
   return (
-    <AuthContext.Provider value={{ user, loading, refresh, logout }}>
+    <AuthContext.Provider value={{ user, loading, refresh, logout, signInDaily }}>
       {children}
     </AuthContext.Provider>
   );

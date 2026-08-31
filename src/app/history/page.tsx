@@ -102,7 +102,7 @@ export default function HistoryPage() {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}{" "}
-                  · {item.size} · 20 积分
+                  · {item.size} · 1 积分
                 </div>
               </div>
             </button>

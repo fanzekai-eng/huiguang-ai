@@ -3,8 +3,9 @@
 // 备选：智谱 AI（CogView-3-Flash，官方免费）
 // 通过环境变量 IMAGE_PROVIDER / IMAGE_API_KEY 切换，无需改代码。
 
-export const IMAGE_COST = 20; // 每张图消耗积分
-export const SIGNUP_CREDITS = 500; // 新用户赠送积分（与数据库默认值一致）
+export const IMAGE_COST = 1; // 每张图消耗积分
+export const SIGNUP_CREDITS = 0; // 注册不再送积分（改为每日签到）
+export const DAILY_SIGN_CREDITS = 5; // 每天签到赠送积分
 
 type Provider = "siliconflow" | "zhipu";
 

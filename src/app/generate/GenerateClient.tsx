@@ -15,7 +15,7 @@ import { buildPrompt } from "@/lib/promptBuilder";
 type Selections = Record<OptionKey, string>;
 
 export default function GenerateClient() {
-  const { user, refresh } = useAuth();
+  const { user, refresh, signInDaily } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get("template");
@@ -198,7 +198,7 @@ export default function GenerateClient() {
 
           <div className="mt-5 border-t border-border pt-4">
             <div className="mb-3 text-xs text-ink-3">
-              每次生成消耗 <span className="font-semibold text-ink-2">20 积分</span>
+              每次生成消耗 <span className="font-semibold text-ink-2">1 积分</span>
               {user && (
                 <span>
                   {" "}· 当前余额{" "}
@@ -272,6 +272,8 @@ export default function GenerateClient() {
         open={showUpgrade}
         onClose={() => setShowUpgrade(false)}
         credits={user?.credits}
+        signedInToday={user?.signedInToday}
+        onSignIn={signInDaily}
       />
     </div>
   );

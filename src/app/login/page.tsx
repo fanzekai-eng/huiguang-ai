@@ -94,8 +94,9 @@ function LoginForm() {
           </div>
           <h1 className="mt-5 text-xl font-bold text-ink">登录 / 注册</h1>
           <p className="mt-1 text-sm text-ink-2">
-            新用户登录即送{" "}
-            <span className="font-semibold text-primary">500 积分</span>
+            每天签到领{" "}
+            <span className="font-semibold text-primary">5 积分</span>
+            ，每次生成消耗 1 积分
           </p>
 
           <div className="mt-6 space-y-3">
