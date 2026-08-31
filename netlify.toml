@@ -1,0 +1,9 @@
+# Netlify 部署配置
+# 构建命令与发布目录由 Netlify 的 Next.js 插件自动处理，这里只需固定 Node 版本
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# 缓存加速（可选）
+[functions]
+  node_bundler = "esbuild"
