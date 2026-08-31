@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #534ab7;
+  --primary-dark: #453c9e;
+  --primary-light: #eeedfe;
+  --accent: #7c6fe0;
+  --bg: #f8f8fc;
+  --card: #ffffff;
+  --border: #e7e7f0;
+  --ink: #1f1f2e;
+  --ink-2: #5f5f75;
+  --ink-3: #9a9ab0;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans SC", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* 细滚动条，用于模板横向快捷条 */
+.thin-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #d6d6e4;
+  border-radius: 9999px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
